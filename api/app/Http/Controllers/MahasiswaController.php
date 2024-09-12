@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fakultas;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-class FakultasController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $fakultas = Fakultas::all();
+        $mahasiswa = Mahasiswa::with('prodis')->get();;
         $data['success'] = true;
-        $data['message'] = "Data Fakultas";
-        $data['result'] = $fakultas;
+        $data['message'] = "Data Mahasiswa";
+        $data['result'] = $mahasiswa;
         return response()->json($data, Response::HTTP_OK);
     }
 
@@ -34,13 +33,18 @@ class FakultasController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'nama' => 'required|unique:fakultas'
+            'npm' => 'required|unique:mahasiswas',
+            'nama' =>'required',
+            'tanggal_lahir'=> 'required',
+            'tempat_lahir'=> 'required',
+            'alamat'=> 'required',
+            'prodi_id'=> 'required'
         ]);
 
-        $result = Fakultas::create($validate); //simpan ke tabel fakultas
+        $result = Mahasiswa::create($validate); //simpan ke tabel Mahasiswa
         if($result){
             $data['success'] = true;
-            $data['message'] = "Data fakultas berhasil disimpan";
+            $data['message'] = "Data mahasiswa berhasil disimpan";
             $data['result'] = $result;
             return response()->json($data, Response::HTTP_CREATED);
         }
@@ -49,7 +53,7 @@ class FakultasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakultas)
+    public function show(Mahasiswa $mahasiswa)
     {
         //
     }
@@ -57,7 +61,7 @@ class FakultasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fakultas $fakultas)
+    public function edit(Mahasiswa $mahasiswa)
     {
         //
     }
@@ -65,7 +69,7 @@ class FakultasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fakultas $fakultas)
+    public function update(Request $request, Mahasiswa $mahasiswa)
     {
         //
     }
@@ -73,7 +77,7 @@ class FakultasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fakultas $fakultas)
+    public function destroy(Mahasiswa $mahasiswa)
     {
         //
     }
