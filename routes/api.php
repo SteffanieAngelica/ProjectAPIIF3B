@@ -7,6 +7,9 @@ use App\Http\Controllers\MahasiswaController;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+// use App\Http\Controllers\LoginController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,6 +28,9 @@ Route::patch('/prodi/{prodi}', [ProdiController::class,'update']);
 Route::delete('/fakultas/{fakultas}', [FakultasController::class,'destroy']);
 Route::delete('/prodi/{prodi}', [ProdiController::class,'destroy']);
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+// Route::post('register', [AuthController::class, 'register']);
+// Route::post('login', [AuthController::class, 'login']);
+
+Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [LoginController::class, 'login']);
 
